@@ -1,6 +1,9 @@
 {
   "name": "nuxt-app",
   "private": true,
+  "overrides": {
+    "vue": "latest"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -9,10 +12,17 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@types/node": "^18",
-    "nuxt": "^3.4.3"
+    "@tailwindcss/typography": "^0.5.9",
+    "cypress": "^12.10.0",
+    "nuxt": "^3.3.0",
+    "rollup": "3.18.0"
   },
   "dependencies": {
-    "openai": "^3.2.1"
+    "@nuxtjs/tailwindcss": "^6.6.4",
+    "@pinia/nuxt": "^0.4.9",
+    "@vueuse/nuxt": "^9.13.0",
+    "daisyui": "^2.51.5",
+    "openai": "^3.2.1",
+    "pinia": "^2.0.35"
   }
 }

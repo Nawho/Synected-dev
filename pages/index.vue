@@ -1,3 +1,3 @@
 <template>
-    <h1>Leto</h1>
+    <h1>Synected</h1>
 </template>
