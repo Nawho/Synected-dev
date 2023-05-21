@@ -4,15 +4,9 @@ import theme from "daisyui/src/colors/themes"
 import { usePageStateStore } from "~/stores/pageStateStore"
 usePageStateStore().currentPageName = "Summarizer"
 
-const studyText = ref("")
-const submitBtn = ref(null)
-const summarizedText = ref("")
 const selectedOption = ref("")
 const loadingResponse = ref(false)
-const submitDisabled = computed(() => {
-    return studyText.value.length < 50
-})
-
+const summarizedText = ref("")
 const formatOptions = ref([
     {
         name: "Text",
@@ -46,9 +40,9 @@ const formatOptions = ref([
     }
 ])
 
-async function sendRequest() {
+async function sendRequest(textToSummarize: string) {
+    console.log("send req")
     //@ts-ignore
-    submitBtn.value.disabled = true
     loadingResponse.value = true
 
     const res = await fetch("http://localhost:3000/api/ai", {
@@ -56,8 +50,10 @@ async function sendRequest() {
             "Content-Type": "application/json"
         },
         method: 'POST',
-        body: JSON.stringify({ "textToSummarize": studyText.value }),
+        body: JSON.stringify({ "textToSummarize": textToSummarize }),
     })
+
+    console.log(res)
 
     const resText = await res.text()
     //@ts-nocheck
@@ -89,14 +85,11 @@ function onFormatSelected(data: { el: HTMLElement, name: string }) {
         <div class="divider"></div>
 
         <main class="mt-5 flex flex-col w-full lg:px-28 s:px-5">
-            <TextInputOption v-model="studyText" v-if="selectedOption === 'Text'"></TextInputOption>
-            <FileInputOption v-if="selectedOption === 'Text Document'"></FileInputOption>
+            <TextInputOption v-if="selectedOption === 'Text'" @send-req="sendRequest"></TextInputOption>
+            <FileInputOption v-if="selectedOption === 'Text Document'" @send-req="sendRequest"></FileInputOption>
             <VideoInputOption v-if="selectedOption === 'Video'"></VideoInputOption>
             <WebInputOption v-if="selectedOption === 'Website'"></WebInputOption>
             <ImageInputOption v-if="selectedOption === 'Image'"></ImageInputOption>
-
-            <button v-if="selectedOption !== ''" :disabled="submitDisabled" ref="submitBtn" @click="sendRequest"
-                class="btn mt-4"> Submit</button>
 
             <div v-if="loadingResponse" class="w-full flex flex-col items-center my-10">
                 Generating response...

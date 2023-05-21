@@ -18,10 +18,13 @@
     "rollup": "3.18.0"
   },
   "dependencies": {
+    "@dqbd/tiktoken": "^1.0.7",
     "@nuxtjs/tailwindcss": "^6.6.4",
     "@pinia/nuxt": "^0.4.9",
     "@vueuse/nuxt": "^9.13.0",
     "daisyui": "^2.51.5",
+    "firebase": "^9.22.0",
+    "markdown-it-vue": "^1.1.7",
     "openai": "^3.2.1",
     "pinia": "^2.0.35"
   }
